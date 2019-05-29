@@ -1,4 +1,5 @@
 site_name: My Docs
 theme: cinder
+docs_dir: docs/mkdocs
 nav:
   - Home: index.md
