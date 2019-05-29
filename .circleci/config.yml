@@ -1,0 +1,46 @@
+version: 2
+
+jobs:
+  build_docs:
+    docker:
+      - image: python:3.7
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: pip install -r docs/mkdocs/requirements.txt
+      - run:
+          name: Build docs
+          command: mkdocs build
+      - persist_to_workspace:
+          root: .
+          paths: site
+
+  deploy_docs:
+    docker:
+      - image: node:8.10.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install and configure dependencies
+          command: |
+            npm install -g --silent gh-pages@2.0.1
+            git config user.email "markuspawellek@gmail.com"
+            git config user.name "circleci"
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: gh-pages --dist site
+
+workflows:
+  version: 2
+  build_and_deploy_docs:
+    jobs:
+      - build_docs
+      - deploy_docs:
+          requires:
+            - build_docs
+          filters:
+            branches:
+              only: master
