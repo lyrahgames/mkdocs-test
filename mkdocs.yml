@@ -1,5 +1,17 @@
 site_name: My Docs
 theme: cinder
 docs_dir: docs/mkdocs
+markdown_extensions:
+  - markdown_include.include:
+      base_path: docs
+  - mdx_math
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+  - mathjax_config.js
+
 nav:
   - Home: index.md
+  - README: project_readme.md
+  - About:
+      - 'License': 'license.md'

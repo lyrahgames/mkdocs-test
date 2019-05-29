@@ -1,2 +1,4 @@
 mkdocs
 mkdocs-cinder
+markdown-include
+python-markdown-math

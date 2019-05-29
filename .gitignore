@@ -1,0 +1,11 @@
+*
+
+!.circleci
+!docs
+
+!*.yml
+!*.md
+!*.js
+!*.txt
+!LICENSE
+!.gitignore
