@@ -24,14 +24,20 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Disable jekyll builds
+          command: touch site/.nojekyll
+      - run:
           name: Install and configure dependencies
           command: |
             npm install -g --silent gh-pages@2.0.1
             git config user.email "markuspawellek@gmail.com"
             git config user.name "circleci"
+      - add_ssh_keys:
+          fingerprints:
+            - "6f:ce:34:65:b1:6c:23:4f:92:6f:37:96:d8:ad:c0:db"
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dist site
+          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist site
 
 workflows:
   version: 2
